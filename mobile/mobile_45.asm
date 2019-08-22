@@ -7368,7 +7368,7 @@ Function117bb6:
 	ldh [hBGMapMode], a
 	farcall Function118284
 	call ClearSprites
-	ld a, [wc300]
+	ld a, [wMobileErrorCodeBuffer]
 	and a
 	jr z, .asm_117be7
 	cp $a
@@ -7417,7 +7417,7 @@ Function117bb6:
 	pop af
 	ldh [rSVBK], a
 	ld a, $d3
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	jr .asm_117bd0
 
 .asm_117c20

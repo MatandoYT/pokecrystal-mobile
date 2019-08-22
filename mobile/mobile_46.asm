@@ -221,7 +221,7 @@ Function118180:
 
 .return_d3
 	ld a, $d3
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ld [wScriptVar], a
 	jr .reset_banks
 
@@ -451,9 +451,9 @@ BattleTowerRoomMenu_InitRAM:
 	call DoubleSpeed
 	xor a
 	ldh [rIF], a
-	ld [wc300], a
-	ld [wc301], a
-	ld [wc302], a
+	ld [wMobileErrorCodeBuffer], a
+	ld [wMobileErrorCodeBuffer + 1], a
+	ld [wMobileErrorCodeBuffer + 2], a
 	ld [wcd80], a
 	ld [wcd65], a
 	ld [wcd66], a
@@ -513,7 +513,7 @@ BattleTowerRoomMenu_Cleanup:
 	ei
 	ld a, [wcd7f]
 	ld [wVramState], a
-	ld a, [wc300]
+	ld a, [wMobileErrorCodeBuffer]
 	ld [wScriptVar], a
 	ret
 
@@ -975,11 +975,11 @@ Function11878d:
 .asm_1187af
 	ld a, $0
 	call Function3e32
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ld a, l
-	ld [wc301], a
+	ld [wMobileErrorCodeBuffer + 1], a
 	ld a, h
-	ld [wc302], a
+	ld [wMobileErrorCodeBuffer + 2], a
 	ld a, $a
 	call Function3e32
 	ld a, [wc3f0]
@@ -1021,10 +1021,10 @@ Function11878d:
 
 ; display an error?
 Function118805:
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	xor a
-	ld [wc301], a
-	ld [wc302], a
+	ld [wMobileErrorCodeBuffer + 1], a
+	ld [wMobileErrorCodeBuffer + 2], a
 	ld a, $a
 	call Function3e32
 	ld a, [wc3f0]
@@ -1045,7 +1045,7 @@ Function118821:
 	ld a, $a
 	call Function3e32
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ld a, [wc3f0]
 	ld [$c319], a
 	ld a, [wcd34]
@@ -1063,7 +1063,7 @@ Function11884c:
 	ld a, $a
 	call Function3e32
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ld a, [wcd34]
 	ld [wcf66], a
 	scf
@@ -2620,7 +2620,7 @@ Function11914e:
 	ld a, $1c
 	ld [wcf66], a
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ret
 
 Function11915d:
@@ -2648,7 +2648,7 @@ Function11915d:
 	ld a, $16
 	ld [wcf66], a
 	ld a, $b
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 
 .asm_11918e
 	call CloseSRAM
@@ -3432,7 +3432,7 @@ Function11966d:
 	ld a, [wcd47]
 	ld [wcf66], a
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ret
 
 Function11967d:
@@ -3446,7 +3446,7 @@ Function119685:
 	ld a, $14
 	ld [wcf66], a
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	ret
 
 Function119694:
@@ -3781,7 +3781,7 @@ Function11984e:
 
 .asm_1198a0
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	jp BattleTowerRoomMenu_IncrementJumptable
 
 .asm_1198a8
@@ -4844,7 +4844,7 @@ Function119f98:
 	ld a, [wcd33]
 	ld [wcf66], a
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	scf
 	ret
 
@@ -4868,7 +4868,7 @@ Function119f98:
 	ld [wcf66], a
 	farcall Function115dc3
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	scf
 	ret
 
@@ -5194,7 +5194,7 @@ BattleTowerRoomMenu2_UpdateYesNoMenu:
 .exit_carry
 	ld [wcf66], a
 	ld a, $a
-	ld [wc300], a
+	ld [wMobileErrorCodeBuffer], a
 	scf
 	ret
 
