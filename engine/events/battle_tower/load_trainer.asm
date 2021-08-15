@@ -1,3 +1,4 @@
+; all of this is now obsolete
 Function_LoadOpponentTrainerAndPokemons:
 	ldh a, [rSVBK]
 	push af

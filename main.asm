@@ -701,20 +701,21 @@ INCLUDE "data/battle_tower/unknown.asm"
 SECTION "Mobile News Data", ROMX
 
 INCLUDE "mobile/news/news.asm"
+INCLUDE "mobile/error.asm"
 
 
 SECTION "Crystal Events", ROMX
 
-INCLUDE "engine/events/battle_tower/load_trainer.asm"
+;INCLUDE "engine/events/battle_tower/load_trainer.asm"
 INCLUDE "engine/events/odd_egg.asm"
 
 
 SECTION "Mobile Stadium 2", ROMX
 
-if DEF(_CRYSTAL_AU)
-INCBIN "mobile/stadium/stadium2_au.bin"
-elif DEF(_CRYSTAL11)
-INCBIN "mobile/stadium/stadium2_11.bin"
-else
+;if DEF(_CRYSTAL_AU)
+;INCBIN "mobile/stadium/stadium2_au.bin"
+;elif DEF(_CRYSTAL11)
+;INCBIN "mobile/stadium/stadium2_11.bin"
+;else
 INCBIN "mobile/stadium/stadium2.bin"
-endc
+;endc

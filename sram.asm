@@ -184,28 +184,30 @@ sHallOfFameEnd::
 
 SECTION "SRAM Crystal Data", SRAM
 
-sMobileEventIndex:: db ; be3c
+;sMobileEventIndex::
+	db ; be3c
 
 sCrystalData:: ds wCrystalDataEnd - wCrystalData
 
-sMobileEventIndexBackup:: db ; be44
+;sMobileEventIndexBackup:: 
+	db ; be44
 
 
 SECTION "SRAM Battle Tower", SRAM
 
 ; Battle Tower data must be in SRAM because you can save and leave between battles
-sBattleTowerChallengeState::
+;sBattleTowerChallengeState::
 ; 0: normal
 ; 2: battle tower
 	db
 
-sBattleTower:: ; be46
-sNrOfBeatenBattleTowerTrainers:: db
-sBTChoiceOfLevelGroup:: db
+;sBattleTower:: ; be46
+;sNrOfBeatenBattleTowerTrainers:: db
+;sBTChoiceOfLevelGroup:: db
 ; Battle Tower trainers are saved here, so nobody appears more than once
-sBTTrainers:: ds BATTLETOWER_STREAK_LENGTH ; sbe48
-sBattleTowerSaveFileFlags:: db
-sBattleTowerReward:: db
+;sBTTrainers:: ds BATTLETOWER_STREAK_LENGTH ; sbe48
+;sBattleTowerSaveFileFlags:: db
+;sBattleTowerReward:: db
 
 ; team of previous trainer
 sBTMonOfTrainers:: ; be51
@@ -247,7 +249,7 @@ s4_a013:: ds 36 ; a013
 
 SECTION "SRAM Mobile 2", SRAM
 
-	ds 1 ; former location for sMobileEventIndex, moved to 1:BE3C in English
+sMobileEventIndex::	ds 1 ; former location for sMobileEventIndex, moved to 1:BE3C in English
 
 sTrainerRankings:: ; a001
 sTrainerRankingGameTimeHOF:: ds 4
@@ -295,7 +297,7 @@ sTrainerRankingBugContestScore:: ds 2
 sTrainerRankingsChecksum:: ds 2
 sTrainerRankingsEnd:: ; a083
 
-	ds 1 ; Former location for sMobileEventIndexBackup, moved to 1:BE44 in English
+sMobileEventIndexBackup::	ds 1 ; Former location for sMobileEventIndexBackup, moved to 1:BE44 in English
 
 sTrainerRankingsBackup:: ds sTrainerRankingsEnd - sTrainerRankings ; a084
 
@@ -314,19 +316,25 @@ s5_a894:: ds NAME_LENGTH_JAPANESE ; a894
 
 	ds $2
 
-s5_a89c:: ds 22 ; a89c
-s5_a8b2:: ds 150 ; a8b2
+s5_a89c:: ds 22 ; a89c honor roll level and room string
+;s5_a8b2::
+	ds 150 ; a8b2 honor roll downloaded names
 
-s5_a948:: ds 246 ; a948
+;s5_a948::
+	ds 246 ; a948 battle tower data to upload
 
-	ds $3
+; Battle Tower data must be in SRAM because you can save and leave between battles
+sBattleTowerChallengeState::
+; 0: normal
+; 2: battle tower
+	db
 
-s5_aa41:: ds 4 ; aa41
-
-	ds $2
-
-s5_aa47:: db ; aa47
-s5_aa48:: db ; aa48
+sBattleTower:: ; aa3f
+sNrOfBeatenBattleTowerTrainers:: db
+sBTChoiceOfLevelGroup:: db ; aa40
+s5_aa41:: ds 6
+s5_aa47:: db
+s5_aa48:: db
 
 	ds $2
 
@@ -341,9 +349,10 @@ s5_aa5d:: ds MOBILE_LOGIN_PASSWORD_LENGTH ; aa5d
 s5_aa8b:: db ; aa8b
 s5_aa8c:: db ; aa8c
 s5_aa8d:: db ; aa8d
-s5_aa8e:: ds 7 * $cc ; aa8e
+;s5_aa8e::
+	ds 7 * $cc ; aa8e battle tower room data
 
-	ds $1
+sBattleTowerSaveFileFlags:: db
 
 s5_b023:: ds 105 ; b023
 s5_b08c:: ds 4 ; b08c
@@ -354,7 +363,8 @@ s5_b2f9:: db ; b2f9
 s5_b2fa:: db ; b2fa
 s5_b2fb:: db ; b2fb
 
-	ds $b49
+; relocated
+s5_a8b2:: ds HONOR_ROLL_DATA_LENGTH ; b2fc
+s5_a948:: ds 246 + 17 ; b3ce
+s5_aa8e:: ds BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH
 
-s5_be45:: db ; be45
-s5_be46:: db ; be46
