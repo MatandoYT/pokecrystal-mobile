@@ -301,10 +301,10 @@ Function17d0f3:
 	xor a
 	ld [wLinkMode], a
 	farcall SaveAfterLinkTrade
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 	ld a, $5
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 	ld a, [wMapGroup]
 	ld b, a
@@ -559,9 +559,9 @@ Function17d2c0:
 	ret
 
 Function17d2ce:
-	ld a, $5
+	ld a, BANK(s5_aa72)
 	call GetSRAMBank
-	ld a, [$aa72]
+	ld a, [s5_aa72]
 	call CloseSRAM
 	and a
 	jr nz, .asm_17d2e2
@@ -594,20 +594,20 @@ Function17d2ce:
 	ret
 
 Function17d314:
-	ld a, $5
+	ld a, BANK(s5_b1b1)
 	call GetSRAMBank
-	ld a, [$b1b1]
+	ld a, [s5_b1b1]
 	call CloseSRAM
 	cp $21
 	jr nc, .asm_17d354
-	ld a, $6
+	ld a, BANK(sNewsData)
 	call GetSRAMBank
 	ld l, $0
 	ld h, l
-	ld de, $a006
-	ld a, [$a004]
+	ld de, sNewsData + 6
+	ld a, [sNewsData + 4]
 	ld c, a
-	ld a, [$a005]
+	ld a, [sNewsData + 5]
 	ld b, a
 .asm_17d336
 	push bc
@@ -621,10 +621,10 @@ Function17d314:
 	ld a, b
 	or c
 	jr nz, .asm_17d336
-	ld a, [$a002]
+	ld a, [sNewsData + 2]
 	cp l
 	jr nz, .asm_17d354
-	ld a, [$a003]
+	ld a, [sNewsData + 3]
 	cp h
 	jr nz, .asm_17d354
 	call CloseSRAM
@@ -633,10 +633,10 @@ Function17d314:
 
 .asm_17d354
 	call CloseSRAM
-	ld a, $5
+	ld a, BANK(s5_aa73)
 	call GetSRAMBank
 	xor a
-	ld hl, $aa73
+	ld hl, s5_aa73
 	ld bc, $c
 	call ByteFill
 	call CloseSRAM
@@ -687,9 +687,9 @@ Function17d370:
 	ld [wBGMapBuffer], a
 	ld a, $d0
 	ld [wcd21], a
-	ld a, $6
+	ld a, BANK(sNewsData)
 	call GetSRAMBank
-	ld hl, $a006
+	ld hl, sNewsData + 6
 	ld de, wBGPals1
 	ld bc, $1000
 	call CopyBytes
@@ -1001,17 +1001,17 @@ Function17d5f6:
 Function17d60b:
 	ld a, $5
 	call GetSRAMBank
-	ld hl, $b1d3
+	ld hl, s5_b1d3
 	ld de, wc608
 	ld bc, $20
 	call CopyBytes
-	ld a, [$b1b1]
+	ld a, [s5_b1b1]
 	ld c, a
-	ld a, [$b1b2]
+	ld a, [s5_b1b1 + 1]
 	ld b, a
-	ld a, [$b1b3]
+	ld a, [s5_b1b3]
 	ld l, a
-	ld a, [$b1b4]
+	ld a, [s5_b1b3 + 1]
 	ld h, a
 	call CloseSRAM
 	ld a, $6
@@ -1077,10 +1077,10 @@ Function17d60b:
 	ld a, $5
 	call GetSRAMBank
 	ld hl, wc708
-	ld de, $b1b3
-	ld a, [$b1b1]
+	ld de, s5_b1b3
+	ld a, [s5_b1b1]
 	ld c, a
-	ld a, [$b1b2]
+	ld a, [s5_b1b1 + 1]
 	ld b, a
 	call CopyBytes
 	call CloseSRAM
@@ -1093,14 +1093,14 @@ Function17d6a1:
 	ld b, $0
 	ld a, $5
 	call GetSRAMBank
-	ld hl, $b1d3
+	ld hl, s5_b1d3
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
 	ld [wcd47], a
 	ld a, [hl]
 	ld [wBGMapPalBuffer], a
-	ld hl, $b1b3
+	ld hl, s5_b1b3
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
@@ -1228,9 +1228,9 @@ Function17d78d:
 	ld a, [hli]
 	ld b, a
 	call HlToCrashCheckPointer
-	ld a, $6
+	ld a, BANK(sNewsData)
 	call GetSRAMBank
-	ld hl, $a006
+	ld hl, sNewsData + 6
 	add hl, bc
 	ld de, wBGPals1
 	ld bc, $1000
@@ -2941,10 +2941,10 @@ Function17e2a7:
 	call Function17e349
 	xor a
 	ld [wcd7a], a
-	ld a, $5
+	ld a, BANK(s5_aa73)
 	call GetSRAMBank
-	ld hl, $aa73
-	ld de, $aa7f
+	ld hl, s5_aa73
+	ld de, s5_aa7f
 	ld bc, $c
 	call CopyBytes
 	call CloseSRAM
@@ -2980,7 +2980,7 @@ Function17e32b:
 	ld a, $5
 	call GetSRAMBank
 	ld hl, wc608
-	ld de, $b0b1
+	ld de, s5_b0b1
 	ld bc, $40
 	call CopyBytes
 	ld hl, wBGMapBuffer
@@ -2992,7 +2992,7 @@ Function17e32b:
 Function17e349:
 	ld a, $5
 	call GetSRAMBank
-	ld hl, $b0b1
+	ld hl, s5_b0b1
 	ld de, wc608
 	ld bc, $40
 	call CopyBytes
@@ -4170,9 +4170,9 @@ Function17f334:
 	jr .asm_17f35d
 
 .asm_17f355
-	ld a, $5
+	ld a, BANK(s5_b2f3)
 	call GetSRAMBank
-	ld a, [$b2f3]
+	ld a, [s5_b2f3]
 
 .asm_17f35d
 	ld c, a
@@ -4213,9 +4213,9 @@ Function17f382:
 	jr .asm_17f3ab
 
 .asm_17f3a3
-	ld a, $5
+	ld a, BANK(s5_b2f3)
 	call GetSRAMBank
-	ld de, $b2f4
+	ld de, s5_b2f3 + 1
 
 .asm_17f3ab
 	ld a, PRINTNUM_LEADINGZEROS | 2

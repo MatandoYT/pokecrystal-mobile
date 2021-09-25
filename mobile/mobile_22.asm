@@ -325,7 +325,7 @@ Function892b7: ; delete entry?
 Function89305:
 	xor a
 	ld [wMenuSelection], a
-	ld c, 35;40
+	ld c, NUM_CARD_FOLDER_ENTRIES
 .loop
 	ld a, [wMenuSelection]
 	inc a
@@ -339,10 +339,10 @@ Function89305:
 
 Function8931b:
 	push hl
-	ld hl, $a03b ; 4:a03b
+	ld hl, sCardFolderData ; 4:a03b
 	ld a, [wMenuSelection]
 	dec a
-	ld bc, 37 + 4
+	ld bc, CARD_FOLDER_ENTRY_LENGTH
 	call AddNTimes
 	ld b, h
 	ld c, l
@@ -422,7 +422,7 @@ Function89363:
 
 ._incave
 	push de
-	ld e, PLAYER_NAME_LENGTH ;NAME_LENGTH_JAPANESE
+	ld e, EASY_CHAT_MESSAGE_WORD_COUNT
 .loop
 	ld a, [hli]
 	cp -1
@@ -449,13 +449,13 @@ Function89381:
 	jr c, .ok
 	push hl
 	ld a, -1
-	ld bc, 8
+	ld bc, PHONE_NUMBER_LENGTH
 	call ByteFill
 	pop hl
 
 .ok
 	pop de
-	ld c, 8
+	ld c, PHONE_NUMBER_LENGTH
 	call Function89193
 	pop bc
 	ret
@@ -1606,7 +1606,7 @@ Function89a57:
 	ret
 
 .MoveCursorDown:
-	ld d, 35;40
+	ld d, NUM_CARD_FOLDER_ENTRIES
 	ld e,  1
 	call .ApplyCursorMovement
 	ret
@@ -2203,7 +2203,7 @@ Jumptable_89e18:
 
 Function89e1e:
 	call OpenSRAMBank4
-	ld bc, $a037
+	ld bc, sCardFolderPasscode
 	call Function8b36c
 	call CloseSRAM
 	xor a
@@ -2497,18 +2497,18 @@ Function89ff6:
 	call Function89492
 	call Function894ca
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	ld a, -1
-	ld bc, 8
+	ld bc, PHONE_NUMBER_LENGTH
 	call ByteFill
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	ld de, wCardPhoneNumber
 	call Function89381
 	call CloseSRAM
 	call Function8987f
 	call OpenSRAMBank4
 	hlcoord 1, 13
-	ld bc, $a007
+	ld bc, s4_a007
 	call Function89a0c
 	call CloseSRAM
 	call Function891ab
@@ -2889,8 +2889,8 @@ UnknownText_0x8a2f9:
 Function8a2fe:
 	call Function8a313
 	call Function89305
-	ld hl, $a603
-	ld bc, $8
+	ld hl, sPhoneNumber
+	ld bc, PHONE_NUMBER_LENGTH
 	ld a, -1
 	call ByteFill
 	call CloseSRAM
@@ -2900,7 +2900,7 @@ Function8a313:
 	ld c, a
 	call OpenSRAMBank4
 	ld a, c
-	ld [$a60b], a
+	ld [s4_a60b], a
 	ret
 
 Function8a31c:
@@ -3003,7 +3003,7 @@ Function8a3b2:
 
 Function8a3df:
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	call Function89b45
 	call CloseSRAM
 	ld hl, wd002
@@ -3804,7 +3804,7 @@ Function8aa0a:
 	ld [wd013], a;[wd010], a
 	ld [wd012], a
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	ld de, wCardPhoneNumber
 	call Function89381
 	call CloseSRAM
@@ -3884,13 +3884,13 @@ Function8aab6:
 	jr nc, Function8ab00
 	call OpenSRAMBank4
 	ld de, wCardPhoneNumber
-	ld hl, $a603
-	ld c, $8
+	ld hl, sPhoneNumber
+	ld c, PHONE_NUMBER_LENGTH
 	call Function89185
 	jr z, .asm_8aaeb
 	ld hl, wCardPhoneNumber
-	ld de, $a603
-	ld c, $8
+	ld de, sPhoneNumber
+	ld c, PHONE_NUMBER_LENGTH
 	call Function89193
 	hlcoord 1, 13
 	ld de, String_8aaf0
@@ -3917,9 +3917,9 @@ Function8ab00:
 
 Function8ab11:
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	ld de, wCardPhoneNumber
-	ld c, $8
+	ld c, PHONE_NUMBER_LENGTH
 	call Function89185
 	call CloseSRAM
 	jr z, .asm_8ab37
@@ -3946,14 +3946,14 @@ Function8ab3b:
 	call Function89492
 	call Function894ca
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	ld de, wCardPhoneNumber
 	call Function89381
 	call CloseSRAM
 	call Function8987f
 	call OpenSRAMBank4
 	hlcoord 1, 13
-	ld bc, $a007
+	ld bc, s4_a007
 	call Function89a0c
 	call CloseSRAM
 	call Function891ab
@@ -4247,7 +4247,7 @@ Function8adb3:
 
 Function8adbf:
 	call OpenSRAMBank4
-	ld hl, $a603
+	ld hl, sPhoneNumber
 	call Function89b45
 	call CloseSRAM
 	ret

@@ -243,9 +243,22 @@ sBox14:: box sBox14
 
 SECTION "SRAM Mobile 1", SRAM
 
-	ds $13
+	ds $7 ; former location of sCrystalData
+s4_a007:: ds EASY_CHAT_MESSAGE_LENGTH
+s4_a013:: ds EASY_CHAT_MESSAGE_LENGTH
+s4_a01f:: ds EASY_CHAT_MESSAGE_LENGTH
+s4_a02b:: ds EASY_CHAT_MESSAGE_LENGTH
+sCardFolderPasscode:: ds 4
+sCardFolderData:: ds CARD_FOLDER_ENTRY_LENGTH * NUM_CARD_FOLDER_ENTRIES ; a03b
+sPhoneNumber:: ds PHONE_NUMBER_LENGTH
+s4_a60b:: ds 1
+s4_a60c:: ds 2
+s4_a60e:: ds 2
+	ds 496
+s4_a800:: ds 3
+	ds 797
+s4_b000:: ds 1
 
-s4_a013:: ds 36 ; a013
 
 SECTION "SRAM Mobile 2", SRAM
 
@@ -305,23 +318,24 @@ sTrainerRankingsBackup:: ds sTrainerRankingsEnd - sTrainerRankings ; a084
 
 s5_a800:: db ; a800
 
-	ds $24
+	ds $1e
 
-s5_a825:: db ; a825
-s5_a826:: db ; a826
-
-	ds $6d
-
+s5_a81f:: ds 4
+s5_a823:: ds 1
+s5_a824:: ds 1 ; pokemon in trade corner
+s5_a825:: ds 2 ; a825
+s5_a827:: ds NAME_LENGTH_JAPANESE - 1
+s5_a82c:: ds PARTYMON_STRUCT_LENGTH
+s5_a85c:: ds NAME_LENGTH_JAPANESE - 1
+s5_a861:: ds NAME_LENGTH_JAPANESE - 1
+s5_a866:: ds $2a
+s5_a890:: ds 4
 s5_a894:: ds NAME_LENGTH_JAPANESE ; a894
-
-	ds $2
-
+s5_a89a:: ds $2
 s5_a89c:: ds 22 ; a89c honor roll level and room string
-;s5_a8b2::
-	ds 150 ; a8b2 honor roll downloaded names
+s5_a8b2:: ds HONOR_ROLL_DATA_LENGTH ; a8b2 honor roll downloaded names
 
-;s5_a948::
-	ds 246 ; a948 battle tower data to upload
+s5_a948:: ds 246 + 17 ; a948 battle tower data to upload
 
 ; Battle Tower data must be in SRAM because you can save and leave between battles
 sBattleTowerChallengeState::
@@ -336,35 +350,57 @@ s5_aa41:: ds 6
 s5_aa47:: db
 s5_aa48:: db
 
-	ds $2
+	ds $1
+
+s5_aa4a:: db
 
 sMobileLoginPassword:: ds MOBILE_LOGIN_PASSWORD_LENGTH ; aa4b
 
 	ds $1
 
 s5_aa5d:: ds MOBILE_LOGIN_PASSWORD_LENGTH ; aa5d
-
-	ds $1d
-
+	ds 4
+s5_aa72:: ds 1
+s5_aa73:: ds 12
+s5_aa7f:: ds 12
 s5_aa8b:: db ; aa8b
 s5_aa8c:: db ; aa8c
 s5_aa8d:: db ; aa8d
-;s5_aa8e::
-	ds 7 * $cc ; aa8e battle tower room data
+s5_aa8e:: ds BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH ; aa8e battle tower room data
 
 sBattleTowerSaveFileFlags:: db
 
 s5_b023:: ds 105 ; b023
 s5_b08c:: ds 4 ; b08c
-
-	ds $269
-
+s5_b090:: ds 2
+s5_b092:: ds 31
+s5_b0b1:: ds $40
+	ds $c0
+s5_b1b1:: ds 2
+s5_b1b3:: ds 2
+	ds $1e
+s5_b1d3:: ds 2
+	ds $1e
+s5_b1f3:: ds 1
+	ds $ff
+s5_b2f3:: ds 2
+	ds 4
 s5_b2f9:: db ; b2f9
 s5_b2fa:: db ; b2fa
 s5_b2fb:: db ; b2fb
+	ds $c2a;$d03
+s5_bfff:: ds 1
 
-; relocated
-s5_a8b2:: ds HONOR_ROLL_DATA_LENGTH ; b2fc
-s5_a948:: ds 246 + 17 ; b3ce
-s5_aa8e:: ds BATTLE_TOWER_STRUCT_LENGTH * BATTLETOWER_STREAK_LENGTH
 
+SECTION "SRAM Mobile 3", SRAM
+
+sNewsData:: db
+
+
+SECTION "SRAM Mobile 4", SRAM
+
+	ds 1
+s7_a001:: ds $799
+s7_a800:: ds $800
+s7_b000:: ds $fea
+s7_bfea:: ds 1

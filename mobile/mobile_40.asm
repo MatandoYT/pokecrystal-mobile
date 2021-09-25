@@ -1093,8 +1093,8 @@ Function1006dc:
 	ret
 
 Function1006fd:
-	ld a, $04
-	ld hl, $a800
+	ld a, BANK(s4_a800)
+	ld hl, s4_a800
 	call GetSRAMBank
 	xor a
 	ld [hli], a
@@ -1104,8 +1104,8 @@ Function1006fd:
 	ret
 
 Function10070d:
-	ld a, $04
-	ld hl, $a800
+	ld a, BANK(s4_a800)
+	ld hl, s4_a800
 	call GetSRAMBank
 	xor a
 	ld [hli], a
@@ -1126,8 +1126,8 @@ Function100720:
 	ld [wcd73], a
 	ldh a, [hSeconds]
 	ld [wcd74], a
-	ld a, $04
-	ld hl, $a800
+	ld a, BANK(s4_a800)
+	ld hl, s4_a800
 	call GetSRAMBank
 	ld a, [hli]
 	ld [wcd6c], a
@@ -1252,7 +1252,7 @@ Function1007f6:
 	call Function1006dc
 	ld a, $04
 	call GetSRAMBank
-	ld hl, $a802
+	ld hl, s4_a800 + 2
 	call Function100826
 	call CloseSRAM
 	ld hl, wcd6e
@@ -1337,8 +1337,8 @@ String_10089f:
 	db "　むせいげん@"
 
 Function1008a6:
-	ld a, $04
-	ld hl, $a800
+	ld a, BANK(s4_a800)
+	ld hl, s4_a800
 	call GetSRAMBank
 	ld a, [hli]
 	ld [wStringBuffer2], a
@@ -2413,8 +2413,8 @@ Unknown_100ff3:
 	dbwww $80, wPlayerID, 2, NULL
 	dbwww $80, wSecretID, 2, NULL
 	dbwww $80, wPlayerGender, 1, NULL
-	dbwww $04, $a603, 8, NULL
-	dbwww $04, $a007, PARTYMON_STRUCT_LENGTH, NULL
+	dbwww $04, sPhoneNumber, PHONE_NUMBER_LENGTH, NULL
+	dbwww $04, s4_a007, EASY_CHAT_MESSAGE_LENGTH * 4, NULL
 	db -1
 
 Unknown_10102c:
@@ -2437,10 +2437,10 @@ endr
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	ld a, $07
+	ld a, BANK(s7_a001)
 	call GetSRAMBank
 	ld hl, wc608
-	ld de, $a001
+	ld de, s7_a001
 	ld bc, wc7bd - wc608
 	call CopyBytes
 	call CloseSRAM
@@ -2663,9 +2663,9 @@ LoadSelectedPartiesForColosseum:
 	ret
 
 Function1011f1:
-	ld a, $04
+	ld a, BANK(s4_a60c)
 	call GetSRAMBank
-	ld a, [$a60c]
+	ld a, [s4_a60c]
 	ld [wdc41], a
 	call CloseSRAM
 	ld hl, wdc41
@@ -4668,8 +4668,8 @@ Function1020bf:
 	and a
 	jr z, .asm_1020e8
 	dec a
-	ld hl, $a04c + 4 ; phone number of 1st friend in card folder
-	ld bc, $25 + 4
+	ld hl, sCardFolderData + 21 ; phone number of 1st friend in card folder
+	ld bc, CARD_FOLDER_ENTRY_LENGTH
 	call AddNTimes
 	ld d, h
 	ld e, l
@@ -4709,14 +4709,14 @@ Function1020ea:
 	ret
 
 Function102112: ; search entry in card folder matching to opponent?
-	ld a, $04
+	ld a, BANK(sCardFolderData)
 	call GetSRAMBank
-	ld hl, $a041 + 2; trainer name of 1st friend in card folder
-	ld c, 35 ;40
+	ld hl, sCardFolderData + 8; trainer name of 1st friend in card folder
+	ld c, NUM_CARD_FOLDER_ENTRIES
 .outer_loop
 	push hl
 	ld de, $c60f + 2
-	ld b, 31; + 4
+	ld b, 31
 .inner_loop
 	ld a, [de]
 	cp [hl]
@@ -4731,7 +4731,7 @@ Function102112: ; search entry in card folder matching to opponent?
 
 .not_matching
 	pop hl
-	ld de, 37 + 4
+	ld de, CARD_FOLDER_ENTRY_LENGTH
 	add hl, de
 	dec c
 	jr nz, .outer_loop
@@ -6287,9 +6287,9 @@ Function102c3b:
 
 Function102c48:
 	farcall Function10165a
-	ld a, 0
+	ld a, BANK(sPartyMail)
 	call GetSRAMBank
-	ld hl, $a600
+	ld hl, sPartyMail
 	ld de, wc608
 	ld bc, $2f
 	call Function102c71
@@ -6325,15 +6325,15 @@ Function102c87:
 	ld a, [wPartyCount]
 	ld [wcf64], a
 	ld a, 0
-	ld hl, $a600
+	ld hl, sPartyMail
 	ld de, wc608
-	ld bc, $11a
+	ld bc, MAIL_STRUCT_LENGTH * 6
 	call Function102d3e
 	call Function102cee
 	ld a, 0
 	ld hl, wc608
-	ld de, $a600
-	ld bc, $11a
+	ld de, sPartyMail
+	ld bc, MAIL_STRUCT_LENGTH * 6
 	call Function102d3e
 	ld a, [wcd4d]
 	ld [wJumptableIndex], a
@@ -6342,13 +6342,13 @@ Function102c87:
 	ld a, $05
 	ld hl, w5_da00
 	ld de, wc608
-	ld bc, $11a
+	ld bc, MAIL_STRUCT_LENGTH * 6
 	call FarCopyWRAM
 	call Function102cee
 	ld a, $05
 	ld hl, wc608
 	ld de, w5_da00
-	ld bc, $11a
+	ld bc, MAIL_STRUCT_LENGTH * 6
 	call FarCopyWRAM
 	pop af
 	ld [wcf64], a
@@ -6974,10 +6974,10 @@ Function103309:
 	ld bc, 10
 	xor a
 	call ByteFill
-	ld a, $04
+	ld a, BANK(s4_a60c)
 	call GetSRAMBank
 	ld a, [wdc41]
-	ld [$a60c], a
+	ld [s4_a60c], a
 	ld [wBuffer1], a
 	call CloseSRAM
 	call Function1035c6
@@ -7026,10 +7026,10 @@ Function103362:
 	ld hl, wBuffer2
 	bit 6, [hl]
 	jr z, .asm_103398
-	ld a, $04
+	ld a, BANK(s4_a60c)
 	call GetSRAMBank
 	ld a, [wBuffer1]
-	ld [$a60c], a
+	ld [s4_a60c], a
 	ld [wdc41], a
 	call CloseSRAM
 	xor a

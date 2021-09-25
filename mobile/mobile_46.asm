@@ -481,20 +481,20 @@ BattleTowerRoomMenu_InitRAM:
 	farcall Function106464
 	farcall Function115d99
 	farcall Function11615a
-	ld a, $5
+	ld a, BANK(s5_bfff)
 	call GetSRAMBank
 	xor a
-	ld [$bfff], a
+	ld [s5_bfff], a
 	call CloseSRAM
 	ret
 
 Function118440:
 	push af
-	ld a, $5
+	ld a, BANK(s5_bfff)
 	call GetSRAMBank
-	ld a, [$bfff]
+	ld a, [s5_bfff]
 	inc a
-	ld [$bfff], a
+	ld [s5_bfff], a
 	call CloseSRAM
 	pop af
 	ret
@@ -1154,9 +1154,9 @@ Function1188c8:
 
 Function1188e7:
 	ld de, $c346
-	ld a, $5
+	ld a, BANK(s5_aa4a)
 	call GetSRAMBank
-	ld a, [$aa4a]
+	ld a, [s5_aa4a]
 	call CloseSRAM
 	and a
 	ret z
@@ -1941,14 +1941,14 @@ RemovedFunction12:
     and a
     ret nz
 
-    ld a, $05
+    ld a, BANK(s5_aa5d)
     call GetSRAMBank;$2f9d
-    ld a, [$aa5d]
+    ld a, [s5_aa5d]
     and a
     jr z, jr_046_4e63
 
     ld c, a
-    ld hl, $aa5e
+    ld hl, s5_aa5d + 1
 
 jr_046_4e3f:
     push hl
@@ -2531,14 +2531,14 @@ Function119054:
 	call CloseSRAM
 	ld a, $3
 	ldh [rSVBK], a
-	ld a, $5
+	ld a, BANK(s5_b1b3)
 	call GetSRAMBank
 	ld a, [wcd4f]
-	ld [$b1b3], a
+	ld [s5_b1b3], a
 	ld a, [wcd50]
-	ld [$b1b4], a
+	ld [s5_b1b3 + 1], a
 	ld hl, wBGMapBuffer
-	ld de, $aa7f
+	ld de, s5_aa7f
 	ld bc, $000c
 	call CopyBytes
 	ldh a, [rSVBK]
@@ -2546,9 +2546,9 @@ Function119054:
 	ld a, $1
 	ldh [rSVBK], a
 	ld a, [wd474]
-	ld [$b2f3], a
+	ld [s5_b2f3], a
 	ld hl, wd475
-	ld de, $b2f4
+	ld de, s5_b2f3 + 1
 	ld bc, $0004
 	call CopyBytes
 	pop af
@@ -2571,26 +2571,26 @@ Function1190d0:
 	jp Function118b10
 
 Function1190ec:
-	ld a, $5
+	ld a, BANK(s5_aa73)
 	call GetSRAMBank
 	ld hl, wBGMapBuffer
-	ld de, $aa73
+	ld de, s5_aa73
 	ld bc, $000c
 	call CopyBytes
 	call CloseSRAM
-	ld a, $5
+	ld a, BANK(s5_aa72)
 	call GetSRAMBank
 	ld a, $1
-	ld [$aa72], a
+	ld [s5_aa72], a
 	call CloseSRAM
-	ld a, $6
+	ld a, BANK(sNewsData)
 	call GetSRAMBank
 	ld a, [w3_d000]
 	ld c, a
 	ld a, [w3_d000 + 1]
 	ld b, a
 	ld hl, wd002
-	ld de, $a000
+	ld de, sNewsData
 	call Function119192
 	ret c
 	ld a, [wcd89]
@@ -2628,10 +2628,10 @@ Function11915d:
 	ld de, wBGMapBuffer
 	ld bc, $000c
 	call CopyBytes
-	ld a, $5
+	ld a, BANK(s5_aa7f)
 	call GetSRAMBank
 	ld hl, wBGMapBuffer
-	ld de, $aa7f
+	ld de, s5_aa7f
 	ld c, $c
 .asm_119176
 	ld a, [de]
@@ -2762,10 +2762,10 @@ Function119223:
 	xor a
 	ld [wcd4b], a
 	ld [wcd4c], a
-	ld a, $5
+	ld a, BANK(s5_b092)
 	call GetSRAMBank
 	ld hl, wc3cd
-	ld de, $b092
+	ld de, s5_b092
 	ld bc, $001f
 	call CopyBytes
 	dec de
@@ -2781,12 +2781,12 @@ Function119223:
 	ld a, [hli]
 	ld [wcd50], a
 	ld a, [hli]
-	ld [$b1b1], a
+	ld [s5_b1b1], a
 	ld c, a
 	ld a, [hli]
-	ld [$b1b2], a
+	ld [s5_b1b1 + 1], a
 	ld b, a
-	ld de, $b1d3
+	ld de, s5_b1d3
 	call CopyBytes
 	call CloseSRAM
 	ld e, l
@@ -2869,9 +2869,9 @@ Function119223:
 	ret
 
 Function1192cc:
-	ld a, $5
+	ld a, BANK(s5_aa73)
 	call GetSRAMBank
-	ld hl, $aa73
+	ld hl, s5_aa73
 	ld de, $c608
 	ld bc, $000c
 	call CopyBytes
@@ -4144,10 +4144,10 @@ Function119b52:
 	ld a, [w3_d090]
 	cp $1
 	jr nz, .asm_119b66
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 	ld a, $4
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 
 .asm_119b66
@@ -4244,10 +4244,10 @@ Function119b6b:
 .asm_119be3
 	ld a, $19
 	ld [wcf66], a
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 	ld a, $1
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 	xor a
 	ld [w3_d090], a
@@ -4267,15 +4267,15 @@ Function119b6b:
 	ld a, $5
 	call GetSRAMBank
 	ld a, [wcf64]
-	ld [$b090], a
+	ld [s5_b090], a
 	ld a, [wcf65]
-	ld [$b091], a
+	ld [s5_b090 + 1], a
 	ld hl, w3_d800
-	ld de, $b023
+	ld de, s5_b023
 	ld bc, $0069
 	call CopyBytes
 	ld a, $3
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 	ld hl, w3_d800
 	ld de, $c608
@@ -4309,10 +4309,10 @@ Function119c3e:
 .asm_119c68
 	ld a, $19
 	ld [wcf66], a
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 	ld a, $1
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 	xor a
 	ld [w3_d090], a
@@ -7677,10 +7677,10 @@ Function11b570:
 
 	ld a, $1
 	ldh [rSVBK], a
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 
-	ld de, $a800
+	ld de, s5_a800
 	ld a, $1
 	ld [de], a
 	inc de
@@ -7730,29 +7730,29 @@ Function11b5e8:
 	ld bc, 4
 	call CopyBytes
 	call CloseSRAM
-	ld a, $5
+	ld a, BANK(s5_b08c)
 	call GetSRAMBank
 	ld hl, $c608
-	ld de, $b08c
+	ld de, s5_b08c
 	ld bc, 4
 	call CopyBytes
 	ld a, $2
-	ld [$a800], a
-	ld a, [$a81f]
+	ld [s5_a800], a
+	ld a, [s5_a81f]
 	ld [wcd2a], a
-	ld a, [$a820]
+	ld a, [s5_a81f + 1]
 	ld [wcd2b], a
-	ld a, [$a821]
+	ld a, [s5_a81f + 2]
 	ld [wcd2c], a
-	ld a, [$a822]
+	ld a, [s5_a81f + 3]
 	ld [wcd2d], a
-	ld a, [$a823]
+	ld a, [s5_a823]
 	ld [wcd2e], a
-	ld a, [$a824]
+	ld a, [s5_a824]
 	ld [wcd2f], a
-	ld a, [$a825]
+	ld a, [s5_a825]
 	ld [wcd30], a
-	ld a, [$a826]
+	ld a, [s5_a825 + 1]
 	ld [wcd31], a
 	call CloseSRAM
 	call Mobile46_InitJumptable
@@ -7991,10 +7991,10 @@ Function11b7e5:
 	xor a
 	ld [wLinkMode], a
 	farcall SaveAfterLinkTrade
-	ld a, $5
+	ld a, BANK(s5_a800)
 	call GetSRAMBank
 	ld a, $5
-	ld [$a800], a
+	ld [s5_a800], a
 	call CloseSRAM
 	ld a, [wMapGroup]
 	ld b, a
@@ -8019,15 +8019,15 @@ Function11b879:
 	ret z
 	ld a, $5
 	call GetSRAMBank
-	ld a, [$a800]
+	ld a, [s5_a800]
 	ld [wScriptVar], a
-	ld a, [$a890]
+	ld a, [s5_a890]
 	ld [wcd49], a
-	ld a, [$a891]
+	ld a, [s5_a890 + 1]
 	ld [wcd4a], a
-	ld a, [$a892]
+	ld a, [s5_a890 + 2]
 	ld [wcd4b], a
-	ld a, [$a893]
+	ld a, [s5_a890 + 3]
 	ld [wcd4c], a
 	call CloseSRAM
 	ld a, [wScriptVar]
@@ -8108,7 +8108,7 @@ Function11b920:
 	call Mobile46_InitJumptable
 	ld a, $5
 	call GetSRAMBank
-	ld hl, $a81f
+	ld hl, s5_a81f
 	ld de, $c626
 	ld bc, 8
 	call CopyBytes
@@ -8117,11 +8117,11 @@ Function11b920:
 	ret
 
 Function11b93b:
-	ld a, $5
+	ld a, BANK(s5_a823)
 	call GetSRAMBank
 	xor a
-	ld [$a800], a
-	ld hl, $a823
+	ld [s5_a800], a
+	ld hl, s5_a823
 	ld de, $c608
 	ld bc, $008f
 	call CopyBytes
@@ -8132,24 +8132,24 @@ Function11b93b:
 	ld a, HIGH($c608)
 	ld [wMobileMonSpeciesPointerBuffer + 1], a
 
-	ld a, LOW($c611)
+	ld a, LOW($c608 + $9)
 	ld [wMobileMonStructurePointerBuffer], a
-	ld a, HIGH($c611)
+	ld a, HIGH($c608 + $9)
 	ld [wMobileMonStructurePointerBuffer + 1], a
 
-	ld a, LOW($c641)
+	ld a, LOW($c608 + $39)
 	ld [wMobileMonOTNamePointerBuffer], a
-	ld a, HIGH($c641)
+	ld a, HIGH($c608 + $39)
 	ld [wMobileMonOTNamePointerBuffer + 1], a
 
-	ld a, LOW($c646)
+	ld a, LOW($c608 + $3e)
 	ld [wMobileMonNicknamePointerBuffer], a
-	ld a, HIGH($c646)
+	ld a, HIGH($c608 + $3e)
 	ld [wMobileMonNicknamePointerBuffer + 1], a
 
-	ld a, LOW($c64b)
+	ld a, LOW($c608 + $43)
 	ld [wMobileMonMailPointerBuffer], a
-	ld a, HIGH($c64b)
+	ld a, HIGH($c608 + $43)
 	ld [wMobileMonMailPointerBuffer + 1], a
 	call AddMobileMonToParty
 	farcall SaveAfterLinkTrade

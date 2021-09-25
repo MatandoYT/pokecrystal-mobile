@@ -339,9 +339,9 @@ Function11c1b9:
 
 Function11c254:
 	push af
-	ld a, $4
+	ld a, BANK(s4_a007)
 	call GetSRAMBank
-	ld hl, $a007
+	ld hl, s4_a007
 	pop af
 	sla a
 	sla a
@@ -1762,9 +1762,9 @@ Function11cb66:
 	ld a, [hl]
 	and a
 	jr nz, .asm_11cbd4
-	ld a, $4
+	ld a, BANK(s4_a007)
 	call GetSRAMBank
-	ld hl, $a007
+	ld hl, s4_a007
 	ld a, [wMenuCursorY]
 	dec a
 	sla a

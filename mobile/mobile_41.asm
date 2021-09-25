@@ -247,9 +247,9 @@ StubbedTrainerRankings_StepCount:
 
 Unreferenced_StubbedTrainerRankings_BattleTowerWins:
 ;	ret
-	ld a, $5
+	ld a, BANK(s5_aa8d)
 	call GetSRAMBank
-	ld a, [$aa8d]
+	ld a, [s5_aa8d]
 	and a
 	call CloseSRAM
 	ret nz
@@ -584,7 +584,7 @@ DeleteMobileEventIndex: ; after Call_041_6208 in jp
     ld bc, $0083
     xor a
     call ByteFill
-    ld hl, $a07d
+    ld hl, sTrainerRankingShortestMagikarp
     ld a, $03
     ld [hl+], a
     ld [hl], $e8
@@ -827,16 +827,16 @@ Mobile_DummyReturnFalse:
 
 Stubbed_Function106314:
 ;	ret
-	ld a, $4
+	ld a, BANK(s4_b000)
 	call GetSRAMBank
 	ld a, c
 	cpl
-	ld [$b000], a
+	ld [s4_b000], a
 	call CloseSRAM
-	ld a, $7
+	ld a, BANK(s7_a800)
 	call GetSRAMBank
 	ld a, c
-	ld [$a800], a
+	ld [s7_a800], a
 	call CloseSRAM
 	ret
 
@@ -847,15 +847,15 @@ Mobile_AlwaysReturnNotCarry:
 Function106331:
 ; called by Mobile_DummyReturnFalse in Crystal-J
 	; check ~[4:b000] == [7:a800]
-	ld a, $4
+	ld a, BANK(s4_b000)
 	call GetSRAMBank
-	ld a, [$b000]
+	ld a, [s4_b000]
 	cpl
 	ld b, a
 	call CloseSRAM
-	ld a, $7
+	ld a, BANK(s7_a800)
 	call GetSRAMBank
-	ld a, [$a800]
+	ld a, [s7_a800]
 	ld c, a
 	call CloseSRAM
 	ld a, c

@@ -38,31 +38,31 @@ Function170000:
 Function17005a:
 	ld a, $5
 	call GetSRAMBank
-	ld a, [$a824]
+	ld a, [s5_a824]
 	ld [wOTTrademonSpecies], a
-	ld hl, $a827
+	ld hl, s5_a827
 	ld de, wOTTrademonSenderName
-	ld bc, NAME_LENGTH_JAPANESE - 1
+	ld bc, NAME_LENGTH - 1
 	call CopyBytes
 	ld a, "@"
 	ld [de], a
-	ld hl, $a85c
+	ld hl, s5_a85c
 	ld de, wOTTrademonOTName
-	ld bc, NAME_LENGTH_JAPANESE - 1
+	ld bc, MON_NAME_LENGTH - 1
 	call CopyBytes
 	ld a, "@"
 	ld [de], a
-	ld hl, $a841
+	ld hl, s5_a82c + MON_DVS
 	ld a, [hli]
 	ld [wOTTrademonDVs], a
 	ld a, [hl]
 	ld [wOTTrademonDVs + 1], a
-	ld hl, $a832
+	ld hl, s5_a82c + MON_ID
 	ld a, [hli]
 	ld [wOTTrademonID], a
 	ld a, [hl]
 	ld [wOTTrademonID + 1], a
-	ld bc, $a82c
+	ld bc, s5_a82c
 	farcall GetCaughtGender
 	ld a, c
 	ld [wOTTrademonCaughtData], a
@@ -74,19 +74,19 @@ Function17005a:
 INCLUDE "engine/events/battle_tower/battle_tower.asm"
 
 Function170be4:
-	ld a, $5
+	ld a, BANK(s5_a894)
 	call GetSRAMBank
 	xor a
-	ld hl, $a894
+	ld hl, s5_a894
 	ld bc, $0008
 	call ByteFill
 	call CloseSRAM
 	ret
 
 Clears5_a89a:
-	ld a, $5
+	ld a, BANK(s5_a89a)
 	call GetSRAMBank
-	ld hl, $a89a
+	ld hl, s5_a89a
 	xor a
 	ld [hli], a
 	ld [hl], a
@@ -94,9 +94,9 @@ Clears5_a89a:
 	ret
 
 Function170c06:
-	ld a, $5
+	ld a, BANK(s5_a894)
 	call GetSRAMBank
-	ld hl, $a894
+	ld hl, s5_a894
 	ld a, [wBattleResult]
 	and a ; WIN?
 	jr nz, .asm_170c15
@@ -105,10 +105,10 @@ Function170c06:
 .asm_170c15
 	inc hl
 	inc hl
-	ld a, [$a89b]
+	ld a, [s5_a89a + 1]
 	add [hl]
 	ld [hld], a
-	ld a, [$a89a]
+	ld a, [s5_a89a]
 	adc [hl]
 	ld [hli], a
 	jr nc, .asm_170c27
@@ -588,10 +588,10 @@ Function171bdc:
 	ret
 
 Function171beb:
-	ld a, $5
+	ld a, BANK(s5_aa4a)
 	call GetSRAMBank
 	ld a, [wcd4a]
-	ld [$aa4a], a
+	ld [s5_aa4a], a
 	call CloseSRAM
 	ld hl, MenuHeader_171c6b
 	call LoadMenuHeader

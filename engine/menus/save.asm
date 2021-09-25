@@ -453,7 +453,7 @@ SaveData:
 Unreferenced_Function14d6c:
 	ld a, 4 ; MBC30 bank used by JP Crystal; inaccessible by MBC3
 	call GetSRAMBank
-	ld a, [$a60b] ; address of MBC30 bank
+	ld a, [s4_a60b] ; address of MBC30 bank
 	ld b, $0
 	and a
 	jr z, .ok
@@ -461,16 +461,16 @@ Unreferenced_Function14d6c:
 
 .ok
 	ld a, b
-	ld [$a60b], a ; address of MBC30 bank
+	ld [s4_a60b], a ; address of MBC30 bank
 	call CloseSRAM
 	ret
 
 Unreferenced_Function14d83:
-	ld a, 4 ; MBC30 bank used by JP Crystal; inaccessible by MBC3
+	ld a, BANK(s4_a60c) ; MBC30 bank used by JP Crystal; inaccessible by MBC3
 	call GetSRAMBank
 	xor a
-	ld [$a60c], a ; address of MBC30 bank
-	ld [$a60d], a ; address of MBC30 bank
+	ld [s4_a60c], a ; address of MBC30 bank
+	ld [s4_a60c + 1], a ; address of MBC30 bank
 	call CloseSRAM
 	ret
 
@@ -859,25 +859,15 @@ _SaveData:
 	; garbage from wd479. This isn't an issue, since ErasePreviousSave is followed by a regular
 	; save that unwrites the garbage.
 
-;	ld hl, wd479
-;	ld a, [hli]
-;	ld [$a60e + 0], a
-;	ld a, [hli]
-;	ld [$a60e + 1], a
-
-;	jp CloseSRAM
-	
-	ld a, $04
+	call CloseSRAM
+	ld a, BANK(s4_a60e)
     call GetSRAMBank
-    ld hl, wCrystalData
-    ld de, sCrystalData
-    ld bc, wCrystalDataEnd - wCrystalData
-    call CopyBytes
     ld hl, wd479
 	ld a, [hli]
-    ld [$a60e + 0], a
+    ld [s4_a60e + 0], a
     ld a, [hli]
-    ld [$a60e + 1], a
+    ld [s4_a60e + 1], a
+
     jp CloseSRAM
 
 _LoadData:
@@ -891,26 +881,16 @@ _LoadData:
 	; This block originally had some mobile functionality to mirror _SaveData above, but instead it
 	; (harmlessly) writes the aforementioned wEventFlags to the unused wd479.
 
-;	ld hl, wd479
-;	ld a, [$a60e + 0]
-;	ld [hli], a
-;	ld a, [$a60e + 1]
-;	ld [hli], a
-
-;	jp CloseSRAM
-	
-	ld a, $04
+	call CloseSRAM
+	ld a, BANK(s4_a60e)
     call GetSRAMBank
-    ld hl, sCrystalData
-    ld de, wCrystalData
-    ld bc, wCrystalDataEnd - wCrystalData
-    call CopyBytes
-    ld hl, wd479
-    ld a, [$a60e + 0]
-    ld [hli], a
-    ld a, [$a60e + 1]
-    ld [hli], a
-    jp CloseSRAM
+	ld hl, wd479
+	ld a, [s4_a60e + 0]
+	ld [hli], a
+	ld a, [s4_a60e + 1]
+	ld [hli], a
+
+	jp CloseSRAM
 
 GetBoxAddress:
 	ld a, [wCurBox]

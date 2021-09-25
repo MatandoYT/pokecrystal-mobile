@@ -1540,11 +1540,11 @@ Function10578c:
 	inc de
 	ld a, 4 ; MBC30 bank used by JP Crystal; inaccessible by MBC3
 	call GetSRAMBank
-	ld hl, $a603 ; address of MBC30 bank
-	ld bc, $8
+	ld hl, sPhoneNumber ; address of MBC30 bank
+	ld bc, PHONE_NUMBER_LENGTH
 	call CopyBytes
-	ld hl, $a007 ; address of MBC30 bank
-	ld bc, $c
+	ld hl, s4_a007 ; address of MBC30 bank
+	ld bc, EASY_CHAT_MESSAGE_LENGTH
 	call CopyBytes
 	call CloseSRAM
 	ret
