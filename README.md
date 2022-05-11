@@ -12,7 +12,7 @@ To use this properly with an already existing save file for normal Crystal:
 - let the emulator create a new save for this mod, start a new game and save once you can
 - open your normal Crystal save and the newly created one in a hex editor and replace the first 0x8000 bytes of the new save with the first 0x8000 bytes of your normal Crystal save
 
-# Pokémon Crystal [![Build Status][travis-badge]][travis]
+# Pokémon Crystal
 
 This is a disassembly of Pokémon Crystal.
 
