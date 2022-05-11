@@ -18,9 +18,9 @@ This is a disassembly of Pokémon Crystal.
 
 It builds the following ROMs:
 
-- Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc `sha1: f4cd194bdee0d04ca4eac29e09b8e4e9d818c133`
-- Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc `sha1: f2f52230b536214ef7c9924f483392993e226cfb`
-- Pokemon - Crystal Version (A) [C][!].gbc `sha1: a0fc810f1d4e124434f7be2c989ab5b5892ddf36`
+- Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc `sha1: 76f90a61e05ff4af09383227437977d22657aec2`
+- Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc `sha1: 01484847d9caac9c040692d17cdb99099f481e7c`
+- Pokemon - Crystal Version (A) [C][!].gbc `sha1: a5ebc0b0b4ad4c721cc328f73b55af8a2422c8b4`
 
 To set up the repository, see [INSTALL.md](INSTALL.md).
 
