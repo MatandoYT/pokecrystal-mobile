@@ -6689,7 +6689,7 @@ Function102f85:
 	ret
 
 String_102fb2:
-	text_far UnknownText_0x1c41e6 ; friend's pokemon abnormal
+	text_far _LinkAbnormalMonText ; friend's pokemon abnormal
 	text_end
 	;db   "あいてがわ<PKMN>えらんだ　"
 	;next "いじょう<PKMN>あるようです！！"
